@@ -1,3 +1,4 @@
 .env
 *.html
 t.txt
+*.json
