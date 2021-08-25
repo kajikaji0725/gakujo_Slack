@@ -8,6 +8,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/Cside/jsondiff"
 	"github.com/joho/godotenv"
 )
 
@@ -122,13 +123,15 @@ func TestClassNoticeRow(t *testing.T) {
 		t.Fatal(err)
 	}
 	fmt.Println(string(e))
-	// classnoticerow := classNoticeRow
-	// classnoticerow[10].CourseName = "hogehoge"
-	// e2, err := json.MarshalIndent(classnoticerow, "", " ")
-	// if err != nil {
-	// 	t.Fatal(err)
-	// }
-	// if diff := jsondiff.Diff(e, e2); diff != "" {
-	// 	t.Errorf("two jsons are not equal. diff:\n%s", diff)
-	// }
+	classnoticerow := classNoticeRow
+	classnoticerow[10].CourseName = "hogehoge"
+	e2, err := json.MarshalIndent(classnoticerow, "", " ")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if diff := jsondiff.Diff(e, e2); diff == "" {
+		fmt.Println("OK")
+	} else {
+		fmt.Println("NG")
+	}
 }
