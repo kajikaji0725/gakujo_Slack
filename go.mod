@@ -8,5 +8,6 @@ require (
 	github.com/evanphx/json-patch v0.5.2 // indirect
 	github.com/joho/godotenv v1.3.0
 	github.com/sergi/go-diff v1.2.0 // indirect
+	github.com/slack-go/slack v0.9.4 // indirect
 	golang.org/x/net v0.0.0-20210716203947-853a461950ff // indirect
 )

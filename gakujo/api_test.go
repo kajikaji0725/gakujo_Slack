@@ -1,15 +1,14 @@
 package gakujo
 
 import (
-	"encoding/json"
 	"fmt"
 	"log"
 	"os"
-	"reflect"
 	"testing"
 	"time"
 
 	"github.com/joho/godotenv"
+	"github.com/szpp-dev-team/gakujo-api/slack_bot"
 )
 
 var (
@@ -33,19 +32,6 @@ func init() {
 	}
 	log.Println("[Info]Login succeeded(took:", time.Since(begin), "ms)")
 }
-
-// JSONBytesEqual compares the JSON in two byte slices.
-func JSONBytesEqual(a, b []byte) (bool, error) {
-	var j, j2 interface{}
-	if err := json.Unmarshal(a, &j); err != nil {
-		return false, err
-	}
-	if err := json.Unmarshal(b, &j2); err != nil {
-		return false, err
-	}
-	return reflect.DeepEqual(j2, j), nil
-}
-
 func TestLogin(t *testing.T) {
 	inc := NewClient()
 	if err := inc.Login(username, password); err != nil {
@@ -132,32 +118,6 @@ func TestClassNoticeRow(t *testing.T) {
 		fmt.Println(noticerow.Date)
 		fmt.Println(" ")
 	}
-	e, err := json.MarshalIndent(classNoticeRow, "", " ")
-	if err != nil {
-		t.Fatal(err)
-	}
-	fmt.Println(string(e))
-	classnoticerow := classNoticeRow
-	// classnoticerow[10].CourseName = "hogehoge"
-	e2, err := json.MarshalIndent(classnoticerow, "", " ")
-	if err != nil {
-		t.Fatal(err)
-	}
-	if diff, _ := JSONBytesEqual(e, e2); diff == true {
-		fmt.Println("OK")
-	} else {
-		fmt.Println("NG")
-	}
-	f, err := os.Create("../hiniti.json")
-	if err != nil {
-		t.Fatal(err)
-	}
-	f.WriteString(string(e))
-	f2, err := os.Create("../hiniti2.json")
-	if err != nil {
-		t.Fatal(err)
-	}
-	f2.WriteString(string(e2))
 }
 
 func TestSeisekiRows(t *testing.T) {
@@ -172,14 +132,5 @@ func TestSeisekiRows(t *testing.T) {
 	for _, row := range rows {
 		fmt.Println(*row)
 	}
-	e, err := json.MarshalIndent(rows, "", " ")
-	if err != nil {
-		t.Fatal(err)
-	}
-	fmt.Println(string(e))
-	f, err := os.Create("seiseki.json")
-	if err != nil {
-		t.Fatal(err)
-	}
-	f.WriteString(string(e))
+	slack_bot.File(rows)
 }
