@@ -25,8 +25,5 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	// for _, row := range rows {
-	// 	fmt.Println(*row)
-	// }
 	slack_bot.UpdateSeisekiFile(rows)
 }
