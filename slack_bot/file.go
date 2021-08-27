@@ -31,6 +31,7 @@ func JSONBytesEqual(a, b []byte) (bool, error) {
 }
 
 func UpdateSeisekiFile(rows []*model.SeisekiRow) error {
+	sort.Slice(rows, func(i, j int) bool { return rows[j].Date.After(rows[i].Date) })
 	e, err := json.MarshalIndent(rows, "", " ")
 	if err != nil {
 		return err
@@ -52,12 +53,17 @@ func UpdateSeisekiFile(rows []*model.SeisekiRow) error {
 		if diff, _ := JSONBytesEqual(e, b); diff {
 			BotSame()
 		} else {
+			var pastSeiseki []model.SeisekiRow
+			err := json.Unmarshal([]byte(b), &pastSeiseki)
+			if err != nil {
+				return err
+			}
+
 			updata, err := os.Create("seiseki.json")
 			if err != nil {
 				return err
 			}
 			updata.WriteString(string(e))
-			sort.Slice(rows, func(i, j int) bool { return rows[i].Year < rows[j].Year })
 			index := 0
 			for i, row := range rows {
 				if row.Year == 2021 {
@@ -66,7 +72,8 @@ func UpdateSeisekiFile(rows []*model.SeisekiRow) error {
 				}
 			}
 			row := rows[index:]
-			BotNew(row)
+			change := rows[len(pastSeiseki):]
+			BotNew(row, change)
 		}
 	}
 	return nil
