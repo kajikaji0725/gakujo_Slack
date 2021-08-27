@@ -1,4 +1,4 @@
-module github.com/szpp-dev-team/gakujo-api
+module github.com/kajikaji0725/gakujo_Slack
 
 go 1.16
 
@@ -9,5 +9,6 @@ require (
 	github.com/joho/godotenv v1.3.0
 	github.com/sergi/go-diff v1.2.0 // indirect
 	github.com/slack-go/slack v0.9.4 // indirect
-	golang.org/x/net v0.0.0-20210716203947-853a461950ff // indirect
+	github.com/szpp-dev-team/gakujo-api v0.0.0-20210814065315-93d1c8074b07 // indirect
+	golang.org/x/net v0.0.0-20210825183410-e898025ed96a // indirect
 )

@@ -2,7 +2,6 @@ package slack_bot
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"os"
 	"reflect"
@@ -31,19 +30,15 @@ func JSONBytesEqual(a, b []byte) (bool, error) {
 	return reflect.DeepEqual(j2, j), nil
 }
 
-func File(rows []*model.SeisekiRow) error {
+func UpdateSeisekiFile(rows []*model.SeisekiRow) error {
 	e, err := json.MarshalIndent(rows, "", " ")
 	if err != nil {
 		return err
 	}
-
-	f, err := os.Open("../seiseki.json")
-	if err != nil {
-		return err
-	}
+	f, err := os.Open("seiseki.json")
 	defer f.Close()
 	if err != nil {
-		new, err := os.Create("../seiseki.json")
+		new, err := os.Create("seiseki.json")
 		if err != nil {
 			return err
 		}
@@ -55,14 +50,13 @@ func File(rows []*model.SeisekiRow) error {
 			return err
 		}
 		if diff, _ := JSONBytesEqual(e, b); diff {
-			Bot_same()
+			BotSame()
 		} else {
-			updata, err := os.Create("../seiseki.json")
+			updata, err := os.Create("seiseki.json")
 			if err != nil {
 				return err
 			}
 			updata.WriteString(string(e))
-			fmt.Printf("\n")
 			sort.Slice(rows, func(i, j int) bool { return rows[i].Year < rows[j].Year })
 			index := 0
 			for i, row := range rows {
@@ -72,7 +66,7 @@ func File(rows []*model.SeisekiRow) error {
 				}
 			}
 			row := rows[index:]
-			Bot_new(row)
+			BotNew(row)
 		}
 	}
 	return nil
