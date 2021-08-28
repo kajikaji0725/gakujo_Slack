@@ -17,6 +17,11 @@ jobs:
         go-version: 1.16
 
     - name: Run main.go
+      env:
+        username: ${{ secrets.J_USERNAME }}
+        password: ${{ secrets.J_PASSWORD }}
+        BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+        BOT_CHANNEL: ${{ secrets.BOT_CHANNEL }}
       run: |
-        echo -e 'J_USERNAME=${{ secrets.J_USERNAME }}\nJ_PASSWORD=${{ secrets.J_PASSWORD }}' > ./.env
+        echo -e 'J_USERNAME=$username\nJ_PASSWORD=$password\nBOT_TOKEN=$BOT_TOKEN\nBOT_CHANNEL=&BOT_CHANNEL' > ./.env
         go run main.go
