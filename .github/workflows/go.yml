@@ -17,7 +17,10 @@ jobs:
         go-version: 1.16
 
     - name: Run main.go
-      run:  |
-        env: 
-            echo ${{secrets.BOT_CHANNEL}
-        go run main.go 
+      run: 
+        go run main.go
+      env:
+          Username: ${{ secrets.J_USERNAME }}
+          Password: ${{ secrets.J_PASSWORD }}
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          BOT_CHANNEL: ${{ secrets.BOT_CHANNEL }}
