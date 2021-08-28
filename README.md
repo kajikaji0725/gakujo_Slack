@@ -11,7 +11,7 @@ $ echo -e 'J_USERNAME=学情のID\nJ_PASSWORD=学情のPSWD\nBOT_TOKEN=自分で
 時間指定は、各自のリポジトリにコピーしてGithub Actionを使って指定してください。
 このリポジトリの.github/workflowsを参考にしてください。
 
-**注意**
+**注意**\n
 時間設定はUTC時間になっているため、日本時間にしたい場合は、入力した時間＋9時間で考えてください
 
 ## 実行
