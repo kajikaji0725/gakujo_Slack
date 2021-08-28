@@ -18,6 +18,5 @@ jobs:
 
     - name: Run main.go
       run: |
-        touch .env
-        echo "J_USERNAME=${{ secrets.J_USERNAME }}" >> .env
+        echo -e 'J_USERNAME=${{ secrets.J_USERNAME }}\nJ_PASSWORD=${{ secrets.J_PASSWORD }}' > ./.env
         go run main.go
