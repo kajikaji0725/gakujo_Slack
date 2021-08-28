@@ -1,8 +1,17 @@
 # gakujo_Slack
 
-slackボットを作ろうとしています。ほんとに簡単なものです。
-成績が更新されたら自動で教えてくれて、成績データをslackに送ってもらえるようにしてみました。
-前期と後期の区別ができていないため、1年分の成績を取得してしまう可能性があります。
-slack_botに追加したコードがあります。
+成績を自動で教えてくれるSlackBotを作りました。
 
-**ごみでごめんなさい**
+## 使い方
+各自で.envを作成してください。
+```console
+$ echo -e 'J_USERNAME=学情のID\nJ_PASSWORD=学情のPSWD\nBOT_TOKEN=自分で作ったSlackAPIのBotToken(xoxbで始まるやつ)\nBOT_CHANNEL=送信したいチャンネル名' > ./.env
+```
+
+時間指定は、各自のリポジトリにコピーしてGithub Actionを使って指定してください。
+このリポジトリの.github/workflowsを参考にしてください
+
+## 実行
+```console
+$ go run main.go
+```
