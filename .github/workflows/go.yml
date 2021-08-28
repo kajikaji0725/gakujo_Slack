@@ -11,5 +11,5 @@ jobs:
     steps:
     - name: Run main.go
       run: |
-          echo -e 'J_USERNAME=${{ secrets.J_USERNAME }}\nJ_PASSWORD=${{ secrets.J_PASSWORD }}\nBOT_TOKEN=${{ secrets.BOT_TOKEN }}\nBOT_CHANNEL=${{ secrets.BOT_CHANNEL }}' > ./.env
+          echo -e 'J_USERNAME=${{ secrets.J_USERNAME }}\nJ_PASSWORD=${{ secrets.J_PASSWORD }}\nBOT_TOKEN=${{ secrets.BOT_TOKEN }}\nBOT_CHANNEL=${{ secrets.BOT_CHANNEL }}' > .env
           go run main.go
