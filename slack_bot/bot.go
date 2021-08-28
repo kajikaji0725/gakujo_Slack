@@ -45,6 +45,7 @@ func BotNew(seiseki []*model.SeisekiRow, change []*model.SeisekiRow) {
 }
 
 func BotSame() {
+	fmt.Println("草")
 	api := slack.New(os.Getenv("BOT_TOKEN"))
 	_, _, _ = api.PostMessage(
 		os.Getenv("BOT_CHANNEL"),
