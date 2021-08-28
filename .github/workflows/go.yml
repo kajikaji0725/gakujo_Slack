@@ -18,5 +18,6 @@ jobs:
 
     - name: Run main.go
       run:  |
-        env: echo ${{secrets.BOT_CHANNEL}
+        env: 
+            echo ${{secrets.BOT_CHANNEL}
         go run main.go 
