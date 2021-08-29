@@ -3,12 +3,11 @@ module github.com/kajikaji0725/gakujo_Slack
 go 1.16
 
 require (
-	github.com/Cside/jsondiff v0.0.0-20180209072652-0e50d980b458 // indirect
-	github.com/PuerkitoBio/goquery v1.7.1
-	github.com/evanphx/json-patch v0.5.2 // indirect
 	github.com/joho/godotenv v1.3.0
-	github.com/sergi/go-diff v1.2.0 // indirect
-	github.com/slack-go/slack v0.9.4 // indirect
-	github.com/szpp-dev-team/gakujo-api v0.0.0-20210814065315-93d1c8074b07 // indirect
+	github.com/pkg/errors v0.9.1 // indirect
+	github.com/slack-go/slack v0.9.4
+	github.com/stretchr/testify v1.4.0 // indirect
+	github.com/szpp-dev-team/gakujo-api v0.0.0-20210814065315-93d1c8074b07
 	golang.org/x/net v0.0.0-20210825183410-e898025ed96a // indirect
+	gopkg.in/yaml.v2 v2.2.4 // indirect
 )

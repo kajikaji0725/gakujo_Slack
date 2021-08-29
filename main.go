@@ -10,8 +10,6 @@ import (
 )
 
 func main() {
-	// flag.Parse()
-	// fmt.Println(flag.Args())
 	if err := godotenv.Load(".env"); err != nil {
 		log.Fatal("please set .env on ./..", err)
 	}
