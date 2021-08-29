@@ -2,7 +2,7 @@ name: Go
 
 on:
   push:
-  schedule: [cron: '00 * * * *']
+  schedule: [cron: '10 * * * *']
 
 jobs:
 
