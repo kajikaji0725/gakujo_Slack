@@ -18,7 +18,7 @@ func BotNew(seiseki []*model.SeisekiRow, change []SeisekiSubject, changeRow []*m
 		messeages += messeage
 	}
 
-	messeages += "成績が更新されましたよ"
+	messeages += "成績が更新されましたよ hoge"
 
 	for _, row := range changeRow {
 		changemesseage := fmt.Sprintf("%v\n", *row)
