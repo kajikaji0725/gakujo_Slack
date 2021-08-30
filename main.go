@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"os"
 
@@ -14,10 +13,6 @@ func main() {
 	if err := godotenv.Load(".env"); err != nil {
 		log.Fatal("please set .env on ./..", err)
 	}
-	fmt.Println(os.Getenv("J_USERNAME"))
-	fmt.Println(os.Getenv("J_PASSWORD"))
-	fmt.Println(os.Getenv("BOT_TOKEN"))
-	fmt.Println(os.Getenv("BOT_CHANNEL"))
 	c := gakujo.NewClient()
 	if err := c.Login(os.Getenv("J_USERNAME"), os.Getenv("J_PASSWORD")); err != nil {
 		log.Fatal(err)
@@ -30,5 +25,8 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	slack_bot.UpdateSeisekiFile(rows)
+	er := slack_bot.UpdateSeisekiFile(rows)
+	if er != nil {
+		log.Fatal(er)
+	}
 }

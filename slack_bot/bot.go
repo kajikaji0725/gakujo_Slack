@@ -8,20 +8,30 @@ import (
 	"github.com/szpp-dev-team/gakujo-api/model"
 )
 
-func BotNew(seiseki []*model.SeisekiRow, change []*model.SeisekiRow) {
+func BotNew(seiseki []*model.SeisekiRow, change []SeisekiSubject, changeRow []*model.SeisekiRow) {
 	messeages := ""
+	changeRowMessages := ""
 	changeMessages := ""
+
 	for _, row := range seiseki {
 		messeage := fmt.Sprintf("%v\n", *row)
 		messeages += messeage
 	}
+
 	messeages += "成績が更新されましたよ"
 
-	for _, row := range change {
+	for _, row := range changeRow {
 		changemesseage := fmt.Sprintf("%v\n", *row)
-		changeMessages += changemesseage
+		changeRowMessages += changemesseage
 	}
-	changeMessages += "これが追加されました"
+	changeRowMessages += "これが追加されました"
+
+	for _, row := range change {
+		messeage := fmt.Sprintf("%v\n", row)
+		changeMessages += messeage
+	}
+	changeMessages += "この科目の成績が追加されました。"
+
 	api := slack.New(os.Getenv("BOT_TOKEN"))
 	_, _, _ = api.PostMessage(
 		os.Getenv("BOT_CHANNEL"),
@@ -29,19 +39,9 @@ func BotNew(seiseki []*model.SeisekiRow, change []*model.SeisekiRow) {
 	)
 	_, _, _ = api.PostMessage(
 		os.Getenv("BOT_CHANNEL"),
-		slack.MsgOptionText(changeMessages, false),
+		slack.MsgOptionText(changeRowMessages, false),
 	)
-	api = slack.New("xoxb-1491378823348-2286618846368-uIxUrd1gGmuRC2QBPe1euDjr")
-	messeages = ""
-	for _, row := range change {
-		messeage := fmt.Sprintf("%v\n", row.SubjectName)
-		messeages += messeage
-	}
-	messeages += "この科目の成績が追加されました。"
-	_, _, _ = api.PostMessage(
-		"random",
-		slack.MsgOptionText(messeages, false),
-	)
+	//ここにrandomを追加します。　後で
 }
 
 func BotSame() {
@@ -52,3 +52,5 @@ func BotSame() {
 		slack.MsgOptionText("成績に変更はありません", false),
 	)
 }
+
+// func slackSendMessage(botToken string)

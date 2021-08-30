@@ -10,6 +10,10 @@ import (
 	"github.com/szpp-dev-team/gakujo-api/model"
 )
 
+type SeisekiSubject struct {
+	Subject string
+}
+
 type ByAge []*model.SeisekiRow
 
 func (a ByAge) Len() int           { return len(a) }
@@ -31,11 +35,20 @@ func JSONBytesEqual(a, b []byte) (bool, error) {
 }
 
 func UpdateSeisekiFile(rows []*model.SeisekiRow) error {
+	Seiseki := make([]SeisekiSubject, 0)
 	sort.Slice(rows, func(i, j int) bool { return rows[j].Date.After(rows[i].Date) })
-	e, err := json.MarshalIndent(rows, "", " ")
+
+	for _, subjectname := range rows {
+		var seiseki SeisekiSubject
+		seiseki.Subject = subjectname.SubjectName
+		Seiseki = append(Seiseki, seiseki)
+	}
+
+	subjectnameJson, err := json.MarshalIndent(Seiseki, "", " ")
 	if err != nil {
 		return err
 	}
+
 	f, err := os.Open("seiseki.json")
 	defer f.Close()
 	if err != nil {
@@ -44,17 +57,17 @@ func UpdateSeisekiFile(rows []*model.SeisekiRow) error {
 			return err
 		}
 		defer new.Close()
-		new.WriteString(string(e))
+		new.WriteString(string(subjectnameJson))
 	} else {
 		b, err := ioutil.ReadAll(f)
 		if err != nil {
 			return err
 		}
-		if diff, _ := JSONBytesEqual(e, b); diff {
+		if diff, _ := JSONBytesEqual(subjectnameJson, b); diff {
 			BotSame()
 		} else {
-			var pastSeiseki []model.SeisekiRow
-			err := json.Unmarshal([]byte(b), &pastSeiseki)
+			var pastSeiseki []SeisekiSubject
+			err := json.Unmarshal(b, &pastSeiseki)
 			if err != nil {
 				return err
 			}
@@ -63,7 +76,7 @@ func UpdateSeisekiFile(rows []*model.SeisekiRow) error {
 			if err != nil {
 				return err
 			}
-			updata.WriteString(string(e))
+			updata.WriteString(string(subjectnameJson))
 			index := 0
 			for i, row := range rows {
 				if row.Year == 2021 {
@@ -72,8 +85,9 @@ func UpdateSeisekiFile(rows []*model.SeisekiRow) error {
 				}
 			}
 			row := rows[index:]
-			change := rows[len(pastSeiseki):]
-			BotNew(row, change)
+			change := Seiseki[len(pastSeiseki):]
+			changeRows := rows[len(pastSeiseki):]
+			BotNew(row, change, changeRows)
 		}
 	}
 	return nil
