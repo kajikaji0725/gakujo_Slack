@@ -28,6 +28,10 @@ jobs:
      - name: Run main.go
        run: 
         go run main.go
+        
+     - name: ls
+       run: ls -R
+     
      - name: upload
        uses: actions/upload-artifact@v2
        with:
