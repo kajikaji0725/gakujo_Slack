@@ -25,3 +25,8 @@ jobs:
      - name: Run main.go
        run: 
         go run main.go
+     - name: upload
+       uses: actions/upload-artifact@v2
+       with:
+        name: seiseki.json
+        path: seiseki.json
