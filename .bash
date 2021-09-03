@@ -1,7 +1,7 @@
 #!/bin/bash
 
 filename=".env"               # .env の path
-appname="frozen-sierra-65437" # appname
+appname="floating-crag-63270" # appname
 
 while read line; do
     echo "line: $line"
