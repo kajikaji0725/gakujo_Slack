@@ -132,7 +132,7 @@ func (c *Client) login(reqUrl, username, password string) error {
 
 	fmt.Println(location)
 
-	resp, err := c.getWithReferer(location, "https://idp.shizuoka.ac.jp/")
+	resp, err := c.getWithReferer(location, "https://gakujo.shizuoka.ac.jp/")
 	if err != nil {
 		return err
 	}
