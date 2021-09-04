@@ -20,11 +20,11 @@ func (c *Client) Login(username, password string) error {
 		return err
 	}
 
-	fmt.Println("hoge")
-
 	if err := c.preLogin(); err != nil {
 		return err
 	}
+
+	fmt.Println("hoge")
 	resp, err := c.shibbolethlogin()
 	if err != nil {
 		return err
