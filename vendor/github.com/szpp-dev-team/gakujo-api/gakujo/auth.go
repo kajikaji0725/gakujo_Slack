@@ -16,6 +16,8 @@ func (c *Client) Login(username, password string) error {
 		return err
 	}
 
+	fmt.Println("hoge")
+
 	if err := c.fetchGakujoRootJSESSIONID(); err != nil {
 		return err
 	}
