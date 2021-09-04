@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"os"
 
@@ -15,7 +14,6 @@ func main() {
 	// }
 	c := gakujo.NewClient()
 	if err := c.Login(os.Getenv("J_USERNAME"), os.Getenv("J_PASSWORD")); err != nil {
-		fmt.Println("hoeg")
 		log.Fatal(err)
 	}
 
