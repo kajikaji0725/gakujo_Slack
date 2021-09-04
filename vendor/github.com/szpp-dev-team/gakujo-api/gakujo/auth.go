@@ -107,7 +107,7 @@ func (c *Client) fetchLoginAPIurl(SSOSAMLRequestURL string) (string, error) {
 		_, _ = io.Copy(io.Discard, resp.Body)
 	}()
 	if resp.StatusCode != http.StatusFound {
-		return "", fmt.Errorf("Response status was %d(eect %d)", resp.StatusCode, http.StatusOK)
+		return "", fmt.Errorf("Response status was %d(expect %d)", resp.StatusCode, http.StatusOK)
 	}
 	return resp.Header.Get("Location"), nil
 }
@@ -155,7 +155,7 @@ func (c *Client) postSSOexecution(reqUrl, username, password string) (io.ReadClo
 		return nil, err
 	}
 	if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("Response status was %d(expect %d)", resp.StatusCode, http.StatusOK)
+		return nil, fmt.Errorf("Response status was %d(eect %d)", resp.StatusCode, http.StatusOK)
 	}
 
 	return resp.Body, nil
