@@ -3,7 +3,6 @@ package gakujo
 import (
 	"fmt"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -28,6 +27,7 @@ func (c *Client) Login(username, password string) error {
 	if err != nil {
 		return err
 	}
+
 	if resp.StatusCode != http.StatusOK && resp.StatusCode != http.StatusFound {
 		return fmt.Errorf("Response status was %d(expect %d or %d)", resp.StatusCode, http.StatusOK, http.StatusFound)
 	}
@@ -92,7 +92,7 @@ func (c *Client) preLogin() error {
 		_, _ = io.Copy(io.Discard, resp.Body)
 	}()
 	if resp.StatusCode != http.StatusOK {
-		return fmt.Errorf("Response status was %d(asdfexpect %d)", resp.StatusCode, http.StatusOK)
+		return fmt.Errorf("Response status was %d(expect %d)", resp.StatusCode, http.StatusOK)
 	}
 
 	return nil
@@ -108,7 +108,7 @@ func (c *Client) fetchLoginAPIurl(SSOSAMLRequestURL string) (string, error) {
 		_, _ = io.Copy(io.Discard, resp.Body)
 	}()
 	if resp.StatusCode != http.StatusFound {
-		return "", fmt.Errorf("Response status was %d(123expect %d)", resp.StatusCode, http.StatusOK)
+		return "", fmt.Errorf("Response status was %d(expect %d)", resp.StatusCode, http.StatusOK)
 	}
 	return resp.Header.Get("Location"), nil
 }
@@ -130,18 +130,18 @@ func (c *Client) login(reqUrl, username, password string) error {
 		return err
 	}
 
+	fmt.Println(location)
+
 	resp, err := c.getWithReferer(location, "https://idp.shizuoka.ac.jp/")
 	if err != nil {
 		return err
 	}
-	a, _ := ioutil.ReadAll(resp.Body)
-	fmt.Println(string(a))
 	defer func() {
 		resp.Body.Close()
 		_, _ = io.Copy(io.Discard, resp.Body)
 	}()
 	if resp.StatusCode != http.StatusOK {
-		return fmt.Errorf("Response status was %d(1111expect %d)", resp.StatusCode, http.StatusOK)
+		return fmt.Errorf("Response status was %d(expect %d)", resp.StatusCode, http.StatusOK)
 	}
 
 	return nil
@@ -158,7 +158,7 @@ func (c *Client) postSSOexecution(reqUrl, username, password string) (io.ReadClo
 		return nil, err
 	}
 	if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("Response status was %d(542expect %d)", resp.StatusCode, http.StatusOK)
+		return nil, fmt.Errorf("Response status was %d(expect %d)", resp.StatusCode, http.StatusOK)
 	}
 
 	return resp.Body, nil
@@ -189,7 +189,7 @@ func (c *Client) fetchSSOinitLoginLocation(relayState, samlResponse string) (str
 		_, _ = io.Copy(io.Discard, resp.Body)
 	}()
 	if resp.StatusCode != http.StatusFound {
-		return "", fmt.Errorf("%s\nResponse status was %d(expect1234 %d)", reqUrl, resp.StatusCode, http.StatusFound)
+		return "", fmt.Errorf("%s\nResponse status was %d(expect %d)", reqUrl, resp.StatusCode, http.StatusFound)
 	}
 
 	return resp.Header.Get("Location"), nil
