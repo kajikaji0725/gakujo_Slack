@@ -27,9 +27,8 @@ func (c *Client) Login(username, password string) error {
 	if err != nil {
 		return err
 	}
-	fmt.Println("hoge")
 	if resp.StatusCode != http.StatusOK && resp.StatusCode != http.StatusFound {
-		return fmt.Errorf("Response status was %d(pect %d or %d)", resp.StatusCode, http.StatusOK, http.StatusFound)
+		return fmt.Errorf("Response status was %d(expect %d or %d)", resp.StatusCode, http.StatusOK, http.StatusFound)
 	}
 
 	// セッションがないとき
@@ -108,7 +107,7 @@ func (c *Client) fetchLoginAPIurl(SSOSAMLRequestURL string) (string, error) {
 		_, _ = io.Copy(io.Discard, resp.Body)
 	}()
 	if resp.StatusCode != http.StatusFound {
-		return "", fmt.Errorf("Response status was %d(expect %d)", resp.StatusCode, http.StatusOK)
+		return "", fmt.Errorf("Response status was %d(eect %d)", resp.StatusCode, http.StatusOK)
 	}
 	return resp.Header.Get("Location"), nil
 }
