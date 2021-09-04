@@ -72,7 +72,7 @@ func (c *Client) fetchGakujoRootJSESSIONID() error {
 		_, _ = io.Copy(io.Discard, resp.Body)
 	}()
 	if resp.StatusCode != http.StatusOK {
-		return fmt.Errorf("Response status was %d(expect %d)", resp.StatusCode, http.StatusOK)
+		return fmt.Errorf("Response status was %d(asdfexpect %d)", resp.StatusCode, http.StatusOK)
 	}
 
 	return nil
