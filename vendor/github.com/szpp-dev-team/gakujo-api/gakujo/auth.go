@@ -29,7 +29,7 @@ func (c *Client) Login(username, password string) error {
 	}
 	fmt.Println("hoge")
 	if resp.StatusCode != http.StatusOK && resp.StatusCode != http.StatusFound {
-		return fmt.Errorf("Response status was %d(expect %d or %d)", resp.StatusCode, http.StatusOK, http.StatusFound)
+		return fmt.Errorf("Response status was %d(pect %d or %d)", resp.StatusCode, http.StatusOK, http.StatusFound)
 	}
 
 	// セッションがないとき
