@@ -108,7 +108,10 @@ func (c *Client) get(url string) (*http.Response, error) {
 
 // http.Get wrapper
 func (c *Client) getWithReferer(url, referer string) (*http.Response, error) {
-	req, _ := http.NewRequest(http.MethodGet, url, nil)
+	req, err := http.NewRequest(http.MethodGet, url, nil)
+	if err != nil {
+		fmt.Println(err)
+	}
 	req.Header.Set("Referer", referer)
 	return c.request(req)
 }
