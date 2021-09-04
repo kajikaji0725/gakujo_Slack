@@ -186,7 +186,7 @@ func (c *Client) fetchSSOinitLoginLocation(relayState, samlResponse string) (str
 		_, _ = io.Copy(io.Discard, resp.Body)
 	}()
 	if resp.StatusCode != http.StatusFound {
-		return "", fmt.Errorf("%s\nResponse status was %d(pect %d)", reqUrl, resp.StatusCode, http.StatusFound)
+		return "", fmt.Errorf("%s\nResponse status was %d(expect %d)", reqUrl, resp.StatusCode, http.StatusFound)
 	}
 
 	return resp.Header.Get("Location"), nil
