@@ -2,6 +2,7 @@ package slack_bot
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"os"
 	"reflect"
@@ -43,6 +44,8 @@ func UpdateSeisekiFile(rows []*model.SeisekiRow) error {
 		seiseki.Subject = subjectname.SubjectName
 		Seiseki = append(Seiseki, seiseki)
 	}
+
+	fmt.Println("hoge")
 
 	subjectnameJson, err := json.MarshalIndent(Seiseki, "", " ")
 	if err != nil {
