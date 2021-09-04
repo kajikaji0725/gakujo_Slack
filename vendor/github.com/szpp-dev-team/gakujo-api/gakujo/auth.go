@@ -3,6 +3,7 @@ package gakujo
 import (
 	"fmt"
 	"io"
+	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -133,6 +134,8 @@ func (c *Client) login(reqUrl, username, password string) error {
 	if err != nil {
 		return err
 	}
+	a, _ := ioutil.ReadAll(resp.Body)
+	fmt.Println(string(a))
 	defer func() {
 		resp.Body.Close()
 		_, _ = io.Copy(io.Discard, resp.Body)
