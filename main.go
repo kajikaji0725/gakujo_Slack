@@ -5,14 +5,15 @@ import (
 	"log"
 	"os"
 
+	"github.com/joho/godotenv"
 	"github.com/kajikaji0725/gakujo_Slack/slack_bot"
 	"github.com/szpp-dev-team/gakujo-api/gakujo"
 )
 
 func main() {
-	// if err := godotenv.Load(".env"); err != nil {
-	// 	log.Fatal("please set .env on ./..", err)
-	// }
+	if err := godotenv.Load(".env"); err != nil {
+		log.Fatal("please set .env on ./..", err)
+	}
 	c := gakujo.NewClient()
 	fmt.Println(os.Getenv("J_USERNAME"))
 	fmt.Println(os.Getenv("J_PASSWORD"))

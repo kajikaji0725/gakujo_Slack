@@ -6,6 +6,7 @@ github.com/andybalholm/cascadia
 github.com/gorilla/websocket
 # github.com/joho/godotenv v1.3.0
 ## explicit
+github.com/joho/godotenv
 # github.com/pkg/errors v0.9.1
 ## explicit
 github.com/pkg/errors
