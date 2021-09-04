@@ -14,11 +14,8 @@ func main() {
 	// 	log.Fatal("please set .env on ./..", err)
 	// }
 	c := gakujo.NewClient()
-	fmt.Println(os.Getenv("J_USERNAME"))
-	fmt.Println(os.Getenv("J_PASSWORD"))
-	fmt.Println(os.Getenv("BOT_TOKEN"))
-	fmt.Println(os.Getenv("BOT_CHANNEL"))
 	if err := c.Login(os.Getenv("J_USERNAME"), os.Getenv("J_PASSWORD")); err != nil {
+		fmt.Println("hoeg")
 		log.Fatal(err)
 	}
 
