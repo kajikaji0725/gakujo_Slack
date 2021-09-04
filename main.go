@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 
@@ -16,6 +17,7 @@ func main() {
 	if err := c.Login(os.Getenv("J_USERNAME"), os.Getenv("J_PASSWORD")); err != nil {
 		log.Fatal(err)
 	}
+	fmt.Println("hoge")
 	kc, err := c.NewKyoumuClient()
 	if err != nil {
 		log.Fatal(err)
