@@ -27,7 +27,6 @@ func (c *Client) Login(username, password string) error {
 	if err != nil {
 		return err
 	}
-
 	if resp.StatusCode != http.StatusOK && resp.StatusCode != http.StatusFound {
 		return fmt.Errorf("Response status was %d(expect %d or %d)", resp.StatusCode, http.StatusOK, http.StatusFound)
 	}
@@ -130,9 +129,7 @@ func (c *Client) login(reqUrl, username, password string) error {
 		return err
 	}
 
-	fmt.Println(location)
-
-	resp, err := c.getWithReferer(location, "https://gakujo.shizuoka.ac.jp/")
+	resp, err := c.getWithReferer(location, "https://idp.shizuoka.ac.jp/")
 	if err != nil {
 		return err
 	}
