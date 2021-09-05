@@ -3,6 +3,7 @@ package slack_bot
 import (
 	"encoding/json"
 	"io/ioutil"
+	"log"
 	"os"
 	"reflect"
 	"sort"
@@ -87,6 +88,7 @@ func UpdateSeisekiFile(rows []*model.SeisekiRow) error {
 			row := rows[index:]
 			change := Seiseki[len(pastSeiseki):]
 			changeRows := rows[len(pastSeiseki):]
+			log.Println(change)
 			BotNew(row, change, changeRows)
 		}
 	}
