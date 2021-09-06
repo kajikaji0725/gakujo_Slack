@@ -2,6 +2,6 @@
 *.html
 t.txt
 vendor
-.out
+*.out
 app
-.json
+*.json
