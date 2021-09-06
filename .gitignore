@@ -1,7 +1,5 @@
 .env
-*.html
-t.txt
 vendor
-*.out
 app
+*.out
 *.json
