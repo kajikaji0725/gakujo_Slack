@@ -64,9 +64,7 @@ func UpdateSeisekiFile(rows []*model.SeisekiRow) error {
 		if err != nil {
 			return err
 		}
-		if diff, _ := JSONBytesEqual(subjectnameJson, b); diff {
-			BotSame()
-		} else {
+		if diff, _ := JSONBytesEqual(subjectnameJson, b); !diff {
 			var pastSeiseki []SeisekiSubject
 			err := json.Unmarshal(b, &pastSeiseki)
 			if err != nil {

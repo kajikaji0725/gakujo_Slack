@@ -19,7 +19,7 @@ func init() {
 
 func main() {
 	cr := cron.New()
-	cr.AddFunc("00 */10 * * *", func() {
+	cr.AddFunc("0 12 * * *", func() {
 		c := gakujo.NewClient()
 		if err := c.Login(os.Getenv("J_USERNAME"), os.Getenv("J_PASSWORD")); err != nil {
 			log.Fatal(err)

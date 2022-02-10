@@ -30,27 +30,26 @@ func BotNew(seiseki []*model.SeisekiRow, change []SeisekiSubject, changeRow []*m
 		messeage := fmt.Sprintf("%v\n", row)
 		changeMessages += messeage
 	}
-	changeMessages += "この科目の成績が追加されました。"
+	changeMessages += "以上の科目の成績が追加されました。"
 
-	api := slack.New(os.Getenv("BOT_TOKEN"))
+	api := slack.New(os.Getenv("BOT_TOKEN_TEST"))
 	_, _, _ = api.PostMessage(
-		os.Getenv("BOT_CHANNEL"),
+		os.Getenv("BOT_CHANNEL_TEST"),
 		slack.MsgOptionText(messeages, false),
 	)
+	api = slack.New(os.Getenv("BOT_TOKEN"))
 	_, _, _ = api.PostMessage(
 		os.Getenv("BOT_CHANNEL"),
-		slack.MsgOptionText(changeRowMessages, false),
+		slack.MsgOptionText(changeMessages, false),
 	)
-	//ここにrandomを追加します。　後で
 }
 
 func BotSame() {
 	fmt.Println("草")
-	api := slack.New(os.Getenv("BOT_TOKEN"))
+	api := slack.New(os.Getenv("BOT_TOKEN_TEST"))
 	_, _, _ = api.PostMessage(
-		os.Getenv("BOT_CHANNEL"),
+		os.Getenv("BOT_CHANNEL_TEST"),
 		slack.MsgOptionText("成績に変更はありません", false),
 	)
 }
 
-// func slackSendMessage(botToken string)
