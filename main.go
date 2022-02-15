@@ -20,21 +20,23 @@ func init() {
 func main() {
 	cr := cron.New()
 	cr.AddFunc("@every 5s", func() {
-		c := gakujo.NewClient()
-		if err := c.Login(os.Getenv("J_USERNAME"), os.Getenv("J_PASSWORD")); err != nil {
-			log.Fatal(err)
-		}
-		kc, err := c.NewKyoumuClient()
-		if err != nil {
-			log.Fatal(err)
-		}
-		rows, err := kc.SeisekiRows()
-		if err != nil {
-			log.Fatal(err)
-		}
-		er := slack_bot.UpdateSeisekiFile(rows)
-		if er != nil {
-			log.Fatal(er)
+		if time.Now().Hour() != 2 || time.Now().Hour() != 3 || time.Now().Hour() != 4 || time.Now().Hour() != 5 {
+			c := gakujo.NewClient()
+			if err := c.Login(os.Getenv("J_USERNAME"), os.Getenv("J_PASSWORD")); err != nil {
+				log.Fatal(err)
+			}
+			kc, err := c.NewKyoumuClient()
+			if err != nil {
+				log.Fatal(err)
+			}
+			rows, err := kc.SeisekiRows()
+			if err != nil {
+				log.Fatal(err)
+			}
+			er := slack_bot.UpdateSeisekiFile(rows)
+			if er != nil {
+				log.Fatal(er)
+			}
 		}
 	})
 

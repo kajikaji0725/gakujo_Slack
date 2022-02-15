@@ -3,14 +3,14 @@ package slack_bot
 import (
 	"fmt"
 	"os"
+	"time"
 
 	"github.com/slack-go/slack"
 	"github.com/szpp-dev-team/gakujo-api/model"
 )
 
-func BotNew(seiseki []*model.SeisekiRow, change []SeisekiSubject, changeRow []*model.SeisekiRow) {
+func BotNew(seiseki []*model.SeisekiRow, change []SeisekiSubject) {
 	messeages := ""
-	changeRowMessages := ""
 	changeMessages := ""
 
 	for _, row := range seiseki {
@@ -19,12 +19,6 @@ func BotNew(seiseki []*model.SeisekiRow, change []SeisekiSubject, changeRow []*m
 	}
 
 	messeages += "成績が更新されましたよ hoge"
-
-	for _, row := range changeRow {
-		changemesseage := fmt.Sprintf("%v\n", *row)
-		changeRowMessages += changemesseage
-	}
-	changeRowMessages += "これが追加されました"
 
 	for _, row := range change {
 		messeage := fmt.Sprintf("%v\n", row)
@@ -35,7 +29,7 @@ func BotNew(seiseki []*model.SeisekiRow, change []SeisekiSubject, changeRow []*m
 	api := slack.New(os.Getenv("BOT_TOKEN_TEST"))
 	_, _, _ = api.PostMessage(
 		os.Getenv("BOT_CHANNEL_TEST"),
-		slack.MsgOptionText(messeages, false),
+		slack.MsgOptionText(changeMessages, false),
 	)
 	api = slack.New(os.Getenv("BOT_TOKEN"))
 	_, _, _ = api.PostMessage(
@@ -45,11 +39,10 @@ func BotNew(seiseki []*model.SeisekiRow, change []SeisekiSubject, changeRow []*m
 }
 
 func BotSame() {
-	fmt.Println("草")
-	api := slack.New(os.Getenv("BOT_TOKEN"))
-	_, _, _ = api.PostMessage(
-		os.Getenv("BOT_CHANNEL"),
-		slack.MsgOptionText("成績に変更はありません", false),
-	)
+	fmt.Printf("%s 草\n", time.Now().String())
+	// api := slack.New(os.Getenv("BOT_TOKEN"))
+	// _, _, _ = api.PostMessage(
+	// 	os.Getenv("BOT_CHANNEL"),
+	// 	slack.MsgOptionText("成績に変更はありません", false),
+	// )
 }
-

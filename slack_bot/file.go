@@ -77,7 +77,7 @@ func UpdateSeisekiFile(rows []*model.SeisekiRow) error {
 			if err != nil {
 				return err
 			}
-			updata.WriteString(string(subjectnameJson))
+
 			index := 0
 			for i, row := range rows {
 				if row.Year == 2021 {
@@ -85,11 +85,29 @@ func UpdateSeisekiFile(rows []*model.SeisekiRow) error {
 					break
 				}
 			}
+
+			changeSubject := make([]SeisekiSubject, 0)
+			flag := false
+
+			for i := index; i < len(rows); i++ {
+				for j := index; j < len(pastSeiseki); j++ {
+					if rows[i].SubjectName == pastSeiseki[j].Subject {
+						flag = true
+						break
+					}
+				}
+				if !flag {
+					changeSubject = append(changeSubject, SeisekiSubject{rows[i].SubjectName})
+				}
+				flag = false
+			}
+
 			row := rows[index:]
-			change := Seiseki[len(pastSeiseki):]
-			changeRows := rows[len(pastSeiseki):]
+			change := changeSubject
 			log.Println(change)
-			BotNew(row, change, changeRows)
+			BotNew(row, change)
+
+			updata.WriteString(string(subjectnameJson))
 		}
 	}
 	return nil
