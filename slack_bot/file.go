@@ -35,6 +35,30 @@ func JSONBytesEqual(a, b []byte) (bool, error) {
 	return reflect.DeepEqual(j2, j), nil
 }
 
+func BinarySearch(changeSubjectName []SeisekiSubject, subjectName string) int {
+
+	start := 0
+	index := 0
+	end := len(changeSubjectName) - 1
+
+	for {
+		if end < start {
+			return -1
+		}
+		index = (start + end) / 2
+
+		if changeSubjectName[index].Subject == subjectName {
+			return index
+		}
+
+		if changeSubjectName[index].Subject < subjectName {
+			start = index + 1
+		} else {
+			end = index - 1
+		}
+	}
+}
+
 func UpdateSeisekiFile(rows []*model.SeisekiRow) error {
 	Seiseki := make([]SeisekiSubject, 0)
 	sort.Slice(rows, func(i, j int) bool { return rows[j].Date.After(rows[i].Date) })
@@ -72,6 +96,7 @@ func UpdateSeisekiFile(rows []*model.SeisekiRow) error {
 			if err != nil {
 				return err
 			}
+			sort.Slice(pastSeiseki, func(i, j int) bool { return pastSeiseki[i].Subject < pastSeiseki[j].Subject })
 
 			updata, err := os.Create("seiseki.json")
 			if err != nil {
@@ -87,19 +112,13 @@ func UpdateSeisekiFile(rows []*model.SeisekiRow) error {
 			}
 
 			changeSubject := make([]SeisekiSubject, 0)
-			flag := false
 
 			for i := index; i < len(rows); i++ {
-				for j := index; j < len(pastSeiseki); j++ {
-					if rows[i].SubjectName == pastSeiseki[j].Subject {
-						flag = true
-						break
-					}
-				}
-				if !flag {
+				target := BinarySearch(pastSeiseki, rows[i].SubjectName)
+
+				if target == -1 {
 					changeSubject = append(changeSubject, SeisekiSubject{rows[i].SubjectName})
 				}
-				flag = false
 			}
 
 			row := rows[index:]

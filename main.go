@@ -19,7 +19,7 @@ func init() {
 
 func main() {
 	cr := cron.New()
-	cr.AddFunc("@every 5s", func() {
+	cr.AddFunc("@hourly", func() {
 		if time.Now().Hour() != 2 || time.Now().Hour() != 3 || time.Now().Hour() != 4 || time.Now().Hour() != 5 {
 			c := gakujo.NewClient()
 			if err := c.Login(os.Getenv("J_USERNAME"), os.Getenv("J_PASSWORD")); err != nil {

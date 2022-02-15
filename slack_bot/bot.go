@@ -29,7 +29,7 @@ func BotNew(seiseki []*model.SeisekiRow, change []SeisekiSubject) {
 	api := slack.New(os.Getenv("BOT_TOKEN_TEST"))
 	_, _, _ = api.PostMessage(
 		os.Getenv("BOT_CHANNEL_TEST"),
-		slack.MsgOptionText(changeMessages, false),
+		slack.MsgOptionText(messeages, false),
 	)
 	api = slack.New(os.Getenv("BOT_TOKEN"))
 	_, _, _ = api.PostMessage(
@@ -40,9 +40,4 @@ func BotNew(seiseki []*model.SeisekiRow, change []SeisekiSubject) {
 
 func BotSame() {
 	fmt.Printf("%s 草\n", time.Now().String())
-	// api := slack.New(os.Getenv("BOT_TOKEN"))
-	// _, _, _ = api.PostMessage(
-	// 	os.Getenv("BOT_CHANNEL"),
-	// 	slack.MsgOptionText("成績に変更はありません", false),
-	// )
 }
